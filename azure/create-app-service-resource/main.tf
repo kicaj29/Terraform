@@ -1,23 +1,29 @@
+
+
+
 ##################################################################################
 # PROVIDERS
 ##################################################################################
 
 # Configure the Azure Provider
 provider "azurerm" {
-  subscription_id = "c0dca3aa-f96c-4551-a0d9-6167695198b2"
+  subscription_id = "${var.azure_subscription_id}"
  }
 
 ##################################################################################
 # RESOURCES
 ##################################################################################
 
-resource "azurerm_app_service" "dn-cel-test-jacek-dev" {
-  name                = "dn-cel-test-jacek-dev"
+resource "azurerm_app_service" "dn-cel-test-jacek99999-dev" {
+  name                = "dn-cel-test-jacek99999-dev"
   location            = "West Europe"
   resource_group_name = "AppServicesDev"
-  app_service_plan_id = "/subscriptions/c0dca3aa-f96c-4551-a0d9-6167695198b2/resourceGroups/AppServicesDev/providers/Microsoft.Web/serverFarms/dn-cel-appserviceplan-dev"
+  app_service_plan_id = "${var.azure_app_service_plan_id}"
 }
 
 ##################################################################################
 # OUTPUT
 #################################################################################
+output "app_service_id" {
+  value = "${azurerm_app_service.dn-cel-test-jacek99999-dev.id}"
+}
