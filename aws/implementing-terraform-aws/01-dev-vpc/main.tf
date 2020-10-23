@@ -31,7 +31,7 @@ variable "database_subnets" {
 provider "aws" {
   version = "~> 2.0"
   region  = var.region
-  profile = "sandbox-svc-terrafrom-jacek"
+  profile = "sandbox-jacek"
   # this profile has to exist in file %USERPROFILE%/.aws/credentials
 }
 
@@ -48,9 +48,9 @@ data "aws_availability_zones" "azs" {}
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "2.33.0"
+  version = "2.62.0"
 
-  name = "dev-vpc"
+  name = "dev-jacek-vpc"
   cidr = var.vpc_cidr_range
 
   azs            = slice(data.aws_availability_zones.azs.names, 0, 2)

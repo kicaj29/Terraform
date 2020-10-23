@@ -34,7 +34,7 @@
   * 2 subnets for DB services: db-1, db-2
 ![aws-terraform-01-VPC.png](./images/aws-terraform-01-VPC.png)
 
-
+>NOTE: by default max number of VPCs per region is 5. More [here](https://github.com/terraform-aws-modules/terraform-aws-vpc/issues/429#issuecomment-611977408)
 
 # resources
 https://app.pluralsight.com/library/courses/implementing-terraform-aws/table-of-contents   
