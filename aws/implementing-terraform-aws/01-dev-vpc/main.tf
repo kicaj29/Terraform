@@ -31,6 +31,8 @@ variable "database_subnets" {
 provider "aws" {
   version = "~> 2.0"
   region  = var.region
+  profile = "sandbox-svc-terrafrom-jacek"
+  # this profile has to exist in file %USERPROFILE%/.aws/credentials
 }
 
 #############################################################################
