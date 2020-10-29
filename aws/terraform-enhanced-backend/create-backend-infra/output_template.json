@@ -1,0 +1,4 @@
+{
+    "bucket-prefix": "${BUCKET_PREIX}",
+    "dynamo-table-name": "${DYNAMO_TABLE_NAME}"
+}

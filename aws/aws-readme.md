@@ -40,6 +40,18 @@
 
 ![aws-terraform-02-VPC.png](./images/aws-terraform-02-VPC.png)
 
+# 03-sec-roles: VPC peering
+
+![aws-terraform-03-sec-network.png](./images/aws-terraform-03-sec-network.png)
+
+![aws-terraform-04-vpc-peering.png](./images/aws-terraform-04-vpc-peering.png)
+
+# 04-sec-vpc: security VPC
+
+# 05-peering-vpc: peering VPC
+
+# 
+
 # resources
 https://app.pluralsight.com/library/courses/implementing-terraform-aws/table-of-contents   
 https://github.com/ned1313/Implementing-Terraform-on-AWS   

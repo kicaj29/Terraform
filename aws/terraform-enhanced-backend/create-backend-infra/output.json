@@ -1,0 +1,4 @@
+{
+    "bucket-prefix": "jackcompany",
+    "dynamo-table-name": "jackcompany-tfstatelock-87592"
+}
