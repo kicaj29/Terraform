@@ -5,6 +5,7 @@
   - [terraform destroy for backend](#terraform-destroy-for-backend)
 - [use terraform backend](#use-terraform-backend)
   - [terraform init - connect with pointed backend](#terraform-init---connect-with-pointed-backend)
+  - [create new workspace demo1](#create-new-workspace-demo1)
 - [resources](#resources)
 
 # create infrastructure for terraform backend
@@ -152,7 +153,7 @@ To perform exactly these actions, run the following command to apply:
 
 ## terraform apply for backend
 
-It will new local file ```output.json``` that contains IDs needed to use this created backend.
+It will create new local file ```output.json``` that contains IDs needed to use this created backend.
 This command also creates new bucket and dynamoDB table as infrastructure for backend state.
 
 ```
@@ -190,7 +191,52 @@ TBD
 ## terraform init - connect with pointed backend
 
 Terraform init will download necessary plugin for AWS provider and will connect with terraform backend state infrastructure.
+>NOTE: it is also possible to pass backend params directly to ```terraform init``` command.
 
+```
+PS D:\GitHub\kicaj29\Terraform\aws\terraform-enhanced-backend\use-backend> terraform init
+
+Initializing the backend...
+
+Successfully configured the backend "s3"! Terraform will automatically
+use this backend unless the backend configuration changes.
+
+Initializing provider plugins...
+- Finding hashicorp/aws versions matching "~> 2.0"...
+- Installing hashicorp/aws v2.70.0...
+- Installed hashicorp/aws v2.70.0 (signed by HashiCorp)
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+```
+
+**At this moment s3 and dynamo table are still empty:**
+
+![01-s3-empty.png](images/01-s3-empty.png)
+![02-dynamo-empty.png](images/02-dynamo-empty.png)
+
+## create new workspace demo1
+
+```
+PS D:\GitHub\kicaj29\Terraform\aws\terraform-enhanced-backend\use-backend> terraform workspace new demo1
+Created and switched to workspace "demo1"!
+
+You're now on a new, empty workspace. Workspaces isolate their state,
+so if you run "terraform plan" Terraform will not see any existing state
+for this configuration.
+```
+
+It means that state file has been created and new row was added into dynamoDB table.
+
+![03-s3-new-file.png](images/03-s3-new-file.png)
+![04-dynamo-new-row.png](images/04-dynamo-new-row.png)
 
 # resources
 
