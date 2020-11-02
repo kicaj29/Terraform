@@ -1,4 +1,4 @@
 {
-    "bucket-prefix": "${BUCKET_PREIX}",
-    "dynamo-table-name": "${DYNAMO_TABLE_NAME}"
+    "s3_bucket": "${s3_bucket}",
+    "dynamodb_statelock": "${dynamodb_statelock}"
 }

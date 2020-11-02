@@ -1,4 +1,4 @@
 {
-    "bucket-prefix": "jackcompany",
-    "dynamo-table-name": "jackcompany-tfstatelock-87592"
+    "s3_bucket": "jackcompany-46227",
+    "dynamodb_statelock": "jackcompany-tfstatelock-46227"
 }
