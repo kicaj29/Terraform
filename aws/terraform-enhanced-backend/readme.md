@@ -6,6 +6,12 @@
 - [use terraform backend](#use-terraform-backend)
   - [terraform init - connect with pointed backend](#terraform-init---connect-with-pointed-backend)
   - [create new workspace demo1](#create-new-workspace-demo1)
+  - [terraform plan for demo1](#terraform-plan-for-demo1)
+  - [terraform apply for demo1](#terraform-apply-for-demo1)
+  - [create new workspace demo2](#create-new-workspace-demo2)
+  - [terraform plan for demo2](#terraform-plan-for-demo2)
+  - [terraform apply for demo2](#terraform-apply-for-demo2)
+  - [terraform destroy for demo1 and demo2](#terraform-destroy-for-demo1-and-demo2)
 - [resources](#resources)
 
 # create infrastructure for terraform backend
@@ -191,7 +197,7 @@ TBD
 ## terraform init - connect with pointed backend
 
 Terraform init will download necessary plugin for AWS provider and will connect with terraform backend state infrastructure.
->NOTE: it is also possible to pass backend params directly to ```terraform init``` command.
+>NOTE: it is also possible to pass backend params directly to ```terraform init``` command, for example ```terraform init -backend-config="bucket=BUCKET_NAME" -backend-config="region=REGION_NAME" -backend-config="dynamodb_table=TABLE_NAME"```.
 
 ```
 PS D:\GitHub\kicaj29\Terraform\aws\terraform-enhanced-backend\use-backend> terraform init
@@ -237,6 +243,147 @@ It means that state file has been created and new row was added into dynamoDB ta
 
 ![03-s3-new-file.png](images/03-s3-new-file.png)
 ![04-dynamo-new-row.png](images/04-dynamo-new-row.png)
+
+Terraform state contains only some metadata:
+```json
+{
+  "version": 4,
+  "terraform_version": "0.13.5",
+  "serial": 0,
+  "lineage": "70507674-88e8-e868-b7be-b24ebdbae5d5",
+  "outputs": {},
+  "resources": []
+}
+```
+
+## terraform plan for demo1
+
+We use ```demo1.tfvars``` because demo1 requires different than default EC2 instance type. Checking the plan does not change terraform state.
+
+```
+PS D:\GitHub\kicaj29\Terraform\aws\terraform-enhanced-backend\use-backend> terraform plan -var-file="demo1.tfvars" -out demo1-state.tfplan
+Acquiring state lock. This may take a few moments...
+Refreshing Terraform state in-memory prior to plan...
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+
+
+------------------------------------------------------------------------
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_instance.example will be created
+  + resource "aws_instance" "example" {
+      + ami                          = "ami-0e4035ae3f70c400f"
+      + arn                          = (known after apply)
+      + associate_public_ip_address  = (known after apply)
+      + availability_zone            = (known after apply)
+      + cpu_core_count               = (known after apply)
+      + cpu_threads_per_core         = (known after apply)
+      + get_password_data            = false
+      + host_id                      = (known after apply)
+      + id                           = (known after apply)
+      + instance_state               = (known after apply)
+      + instance_type                = "t2.small"
+      + ipv6_address_count           = (known after apply)
+      + ipv6_addresses               = (known after apply)
+      + key_name                     = (known after apply)
+      + network_interface_id         = (known after apply)
+      + outpost_arn                  = (known after apply)
+      + password_data                = (known after apply)
+      + placement_group              = (known after apply)
+      + primary_network_interface_id = (known after apply)
+      + private_dns                  = (known after apply)
+      + private_ip                   = (known after apply)
+      + public_dns                   = (known after apply)
+      + public_ip                    = (known after apply)
+      + security_groups              = (known after apply)
+      + source_dest_check            = true
+      + subnet_id                    = (known after apply)
+      + tags                         = {
+          + "Name" = "demo1-jackcompany"
+        }
+      + tenancy                      = (known after apply)
+      + volume_tags                  = (known after apply)
+      + vpc_security_group_ids       = (known after apply)
+
+      + ebs_block_device {
+          + delete_on_termination = (known after apply)
+          + device_name           = (known after apply)
+          + encrypted             = (known after apply)
+          + iops                  = (known after apply)
+          + kms_key_id            = (known after apply)
+          + snapshot_id           = (known after apply)
+          + volume_id             = (known after apply)
+          + volume_size           = (known after apply)
+          + volume_type           = (known after apply)
+        }
+
+      + ephemeral_block_device {
+          + device_name  = (known after apply)
+          + no_device    = (known after apply)
+          + virtual_name = (known after apply)
+        }
+
+      + metadata_options {
+          + http_endpoint               = (known after apply)
+          + http_put_response_hop_limit = (known after apply)
+          + http_tokens                 = (known after apply)
+        }
+
+      + network_interface {
+          + delete_on_termination = (known after apply)
+          + device_index          = (known after apply)
+          + network_interface_id  = (known after apply)
+        }
+
+      + root_block_device {
+          + delete_on_termination = (known after apply)
+          + device_name           = (known after apply)
+          + encrypted             = (known after apply)
+          + iops                  = (known after apply)
+          + kms_key_id            = (known after apply)
+          + volume_id             = (known after apply)
+          + volume_size           = (known after apply)
+          + volume_type           = (known after apply)
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+------------------------------------------------------------------------
+
+This plan was saved to: demo1-state.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "demo1-state.tfplan"
+
+Releasing state lock. This may take a few moments...
+```
+
+## terraform apply for demo1
+
+```
+PS D:\GitHub\kicaj29\Terraform\aws\terraform-enhanced-backend\use-backend> terraform apply demo1-state.tfplan
+Acquiring state lock. This may take a few moments...
+aws_instance.example: Creating...
+aws_instance.example: Still creating... [10s elapsed]
+aws_instance.example: Still creating... [20s elapsed]
+aws_instance.example: Creation complete after 29s [id=i-02bfd87f04de06d61]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+Releasing state lock. This may take a few moments...
+PS D:\GitHub\kicaj29\Terraform\aws\terraform-enhanced-backend\use-backend>
+```
+
+## create new workspace demo2
+## terraform plan for demo2
+## terraform apply for demo2
+## terraform destroy for demo1 and demo2
 
 # resources
 
