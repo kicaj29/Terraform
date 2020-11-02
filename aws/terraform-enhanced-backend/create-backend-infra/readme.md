@@ -1,6 +1,6 @@
 # terraform init
 
-Run ```terraform init``` to download terraform plugin for AWS.
+Run ```terraform init``` to download terraform plugin for AWS (folder .terraform will be created).
 
 # terraform plan
 
