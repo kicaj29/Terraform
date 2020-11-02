@@ -1,3 +1,11 @@
+- [create infrastructure for terraform backend](#create-infrastructure-for-terraform-backend)
+  - [terraform init for backend](#terraform-init-for-backend)
+  - [terraform plan for backend](#terraform-plan-for-backend)
+  - [terraform apply for backend](#terraform-apply-for-backend)
+  - [terraform destroy for backend](#terraform-destroy-for-backend)
+- [use terraform backend](#use-terraform-backend)
+- [resources](#resources)
+
 # create infrastructure for terraform backend
 
 [Backend types](https://www.terraform.io/docs/backends/types/index.html):
@@ -181,4 +189,5 @@ TBD
 
 https://app.pluralsight.com/library/courses/implementing-terraform-aws/table-of-contents   
 https://blog.gruntwork.io/how-to-manage-terraform-state-28f5697e68fa   
-https://www.terraform.io/docs/backends/types/s3.html
+https://www.terraform.io/docs/backends/types/s3.html   
+https://discuss.hashicorp.com/t/how-to-use-templatefile-when-writing-terraform-files-in-json/1906/2
