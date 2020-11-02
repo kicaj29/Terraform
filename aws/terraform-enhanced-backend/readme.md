@@ -192,7 +192,110 @@ s3_bucket = jackcompany-50879
 ```
 
 ## terraform destroy for backend
-TBD
+```
+PS D:\GitHub\kicaj29\Terraform\aws\terraform-enhanced-backend\create-backend-infra> terraform destroy
+random_integer.rand: Refreshing state... [id=50879]
+aws_dynamodb_table.terraform_statelock: Refreshing state... [id=jackcompany-tfstatelock-50879]
+aws_s3_bucket.state_bucket: Refreshing state... [id=jackcompany-50879]
+local_file.user_data_json: Refreshing state... [id=bf66441691cab5e715516deafff7b447fc36e74a]
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # aws_dynamodb_table.terraform_statelock will be destroyed
+  - resource "aws_dynamodb_table" "terraform_statelock" {
+      - arn            = "arn:aws:dynamodb:us-west-1:633883526719:table/jackcompany-tfstatelock-50879" -> null
+      - billing_mode   = "PROVISIONED" -> null
+      - hash_key       = "LockID" -> null
+      - id             = "jackcompany-tfstatelock-50879" -> null
+      - name           = "jackcompany-tfstatelock-50879" -> null
+      - read_capacity  = 20 -> null
+      - stream_enabled = false -> null
+      - tags           = {} -> null
+      - write_capacity = 20 -> null
+
+      - attribute {
+          - name = "LockID" -> null
+          - type = "S" -> null
+        }
+
+      - point_in_time_recovery {
+          - enabled = false -> null
+        }
+
+      - ttl {
+          - enabled = false -> null
+        }
+    }
+
+  # aws_s3_bucket.state_bucket will be destroyed
+  - resource "aws_s3_bucket" "state_bucket" {
+      - acl                         = "private" -> null
+      - arn                         = "arn:aws:s3:::jackcompany-50879" -> null
+      - bucket                      = "jackcompany-50879" -> null
+      - bucket_domain_name          = "jackcompany-50879.s3.amazonaws.com" -> null
+      - bucket_regional_domain_name = "jackcompany-50879.s3.us-west-1.amazonaws.com" -> null
+      - force_destroy               = true -> null
+      - hosted_zone_id              = "Z2F56UZL2M1ACD" -> null
+      - id                          = "jackcompany-50879" -> null
+      - region                      = "us-west-1" -> null
+      - request_payer               = "BucketOwner" -> null
+      - tags                        = {} -> null
+
+      - versioning {
+          - enabled    = true -> null
+          - mfa_delete = false -> null
+        }
+    }
+
+  # local_file.user_data_json will be destroyed
+  - resource "local_file" "user_data_json" {
+      - content              = jsonencode(
+            {
+              - dynamodb_statelock = "jackcompany-tfstatelock-50879"
+              - s3_bucket          = "jackcompany-50879"
+            }
+        ) -> null
+      - directory_permission = "0777" -> null
+      - file_permission      = "0777" -> null
+      - filename             = "output.json" -> null
+      - id                   = "bf66441691cab5e715516deafff7b447fc36e74a" -> null
+    }
+
+  # random_integer.rand will be destroyed
+  - resource "random_integer" "rand" {
+      - id     = "50879" -> null
+      - max    = 99999 -> null
+      - min    = 10000 -> null
+      - result = 50879 -> null
+    }
+
+Plan: 0 to add, 0 to change, 4 to destroy.
+
+Changes to Outputs:
+  - dynamodb_statelock = "jackcompany-tfstatelock-50879" -> null
+  - s3_bucket          = "jackcompany-50879" -> null
+
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: yes
+
+local_file.user_data_json: Destroying... [id=bf66441691cab5e715516deafff7b447fc36e74a]
+local_file.user_data_json: Destruction complete after 0s
+aws_dynamodb_table.terraform_statelock: Destroying... [id=jackcompany-tfstatelock-50879]
+aws_s3_bucket.state_bucket: Destroying... [id=jackcompany-50879]
+aws_dynamodb_table.terraform_statelock: Destruction complete after 3s
+aws_s3_bucket.state_bucket: Destruction complete after 8s
+random_integer.rand: Destroying... [id=50879]
+random_integer.rand: Destruction complete after 0s
+
+Destroy complete! Resources: 4 destroyed.
+```
 
 # use terraform backend
 
