@@ -4,6 +4,7 @@
   - [terraform apply for backend](#terraform-apply-for-backend)
   - [terraform destroy for backend](#terraform-destroy-for-backend)
 - [use terraform backend](#use-terraform-backend)
+  - [terraform init - connect with pointed backend](#terraform-init---connect-with-pointed-backend)
 - [resources](#resources)
 
 # create infrastructure for terraform backend
@@ -185,6 +186,12 @@ s3_bucket = jackcompany-50879
 TBD
 
 # use terraform backend
+
+## terraform init - connect with pointed backend
+
+Terraform init will download necessary plugin for AWS provider and will connect with terraform backend state infrastructure.
+
+
 # resources
 
 https://app.pluralsight.com/library/courses/implementing-terraform-aws/table-of-contents   
