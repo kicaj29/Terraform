@@ -1,4 +1,4 @@
-# Terraform
+# 4 basic commands
 
 There are 4 basic commands:
 * [terraform init](https://www.terraform.io/docs/commands/init.html)
@@ -26,11 +26,11 @@ terraform plan --var-file=variables-dev.tfvars --out=outfile
 * [terraform destroy](https://www.terraform.io/docs/commands/destroy.html)
 * [Standard Module Structure](https://www.terraform.io/docs/modules/create.html#standard-module-structure)
 
-## Terraform for Azure
+# Terraform for Azure
 
 **!!---If Terraform is used to provision/configure resources in Azure then only terraform should be used for this task. Resources should not be created/updated by Azure Portal any more because farther terraform executions will fail. Terraform creates execution plan locally and is not aware for operations executed outside of the terraform.---!!**
 
-### Authenticating using the Azure CLI
+## Authenticating using the Azure CLI
 
 > We recommend using a Service Principal when running in a shared environment (such as within a CI server/automation) - and authenticating via the Azure CLI when you're running Terraform locally.
 
@@ -53,3 +53,33 @@ Terraform saves current state of provisioned services in terraform.tfstate. It i
 
 LOCKING   
 To avoid changing the same azure resources by multiple jobs/people at the same time [locking](https://www.terraform.io/docs/state/locking.html) mechanism can be used.
+
+# Terraform lifecycle
+
+## ignore_changes
+
+[ignore_changes](https://www.terraform.io/docs/configuration/meta-arguments/lifecycle.html#ignore_changes)
+
+As I understood it can be helpful in situation when via terraform is created some resource and next by some other process some properties are updated in this resource. To skip these properties in terraform update operation assign them to ```ignore_changes``` property.
+
+In the following example is some additional labels will be added to the namespace they will not be removed by the terraform update operation:
+```
+resource "kubernetes_namespace" "cert_manager_namespace" {
+  metadata {
+    name = "cert-manager"
+    labels = {
+      name = "cert-manager"
+    }
+  }
+
+  lifecycle {
+    ignore_changes = [metadata]
+  }
+
+  depends_on = [
+    module.eks
+  ]
+}
+```
+
+https://www.reddit.com/r/Terraform/comments/hzzpki/ignoring_externally_added_tags_in_terraform_012/

@@ -26,7 +26,7 @@ variable "aws_dynamodb_table" {
 provider "aws" {
   version = "~>2.0"
   region  = var.region
-  profile = "sandbox-svc-terrafrom-jacek"
+  profile = "default"
 }
 
 ##################################################################################

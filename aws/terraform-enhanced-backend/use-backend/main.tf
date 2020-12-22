@@ -1,7 +1,7 @@
 provider "aws" {
   version = "~>2.0"
   region  = "us-west-1"
-  profile = "sandbox-svc-terrafrom-jacek"
+  profile = "default"
 }
 
 resource "aws_instance" "example" {
