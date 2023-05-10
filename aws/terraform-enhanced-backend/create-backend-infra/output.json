@@ -1,4 +1,4 @@
 {
-    "s3_bucket": "jackcompany-57015",
-    "dynamodb_statelock": "jackcompany-tfstatelock-57015"
+    "s3_bucket": "jackcompany-23769",
+    "dynamodb_statelock": "jackcompany-tfstatelock-23769"
 }

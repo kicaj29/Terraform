@@ -1,3 +1,11 @@
+- [4 basic commands](#4-basic-commands)
+- [Terraform for Azure](#terraform-for-azure)
+  - [Authenticating using the Azure CLI](#authenticating-using-the-azure-cli)
+    - [terraform init](#terraform-init)
+    - [terraform state and locking](#terraform-state-and-locking)
+- [Terraform lifecycle](#terraform-lifecycle)
+  - [ignore\_changes](#ignore_changes)
+- [Enable auto formatting in Visual Studio Code](#enable-auto-formatting-in-visual-studio-code)
 # 4 basic commands
 
 There are 4 basic commands:
@@ -83,3 +91,18 @@ resource "kubernetes_namespace" "cert_manager_namespace" {
 ```
 
 https://www.reddit.com/r/Terraform/comments/hzzpki/ignoring_externally_added_tags_in_terraform_012/
+
+# Enable auto formatting in Visual Studio Code
+
+In the `settings.json` add:
+
+```
+    "[terraform]": {
+        "editor.defaultFormatter": "hashicorp.terraform",
+        "editor.formatOnSave": true
+    },
+    "[terraform-vars]": {
+        "editor.defaultFormatter": "hashicorp.terraform",
+        "editor.formatOnSave": true
+    },
+```

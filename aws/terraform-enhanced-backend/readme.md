@@ -14,6 +14,7 @@
   - [terraform destroy for demo1 and demo2](#terraform-destroy-for-demo1-and-demo2)
     - [destroy demo1](#destroy-demo1)
     - [destroy demo2](#destroy-demo2)
+- [Use terraform backend and test session renew mechanism](#use-terraform-backend-and-test-session-renew-mechanism)
 - [resources](#resources)
 
 # create infrastructure for terraform backend
@@ -830,6 +831,10 @@ aws_instance.example: Destruction complete after 44s
 Destroy complete! Resources: 1 destroyed.
 Releasing state lock. This may take a few moments...
 ```
+
+# Use terraform backend and test session renew mechanism
+
+
 
 # resources
 
